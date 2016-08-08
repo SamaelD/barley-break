@@ -10,7 +10,7 @@ Button {
     style: ButtonStyle {
         background: Rectangle {
             color: mouse.containsMouse ? "crimson" : "blue";
-            border.color: color;
+            border.color: "black";
             radius: 5;
         }
     }

@@ -2,6 +2,8 @@ import QtQuick 2.6
 import QtQuick.Controls 1.4
 import "Logic.js" as Logic
 
+// https://qmlbook.github.io/
+
 ApplicationWindow {
     id: wnd;
     minimumHeight: 500;
@@ -18,8 +20,7 @@ ApplicationWindow {
 
     GameArea {
         id: gameArea;
-        x: 0; y: refresh.height;
-        width: parent.width;
+        y: refresh.height;
         height: parent.height - refresh.height;
     }
 

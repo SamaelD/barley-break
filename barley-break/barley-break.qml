@@ -1,18 +1,30 @@
 import QtQuick 2.6
-import QtQuick.Window 2.2
+import QtQuick.Controls 1.4
+import "Logic.js" as Logic
 
-Window {
-    visible: true
+ApplicationWindow {
+    id: wnd;
+    minimumHeight: 500;
+    minimumWidth: 400;
+    title: "Barley break";
 
-    MouseArea {
-        anchors.fill: parent
-        onClicked: {
-            Qt.quit();
-        }
+    Button {
+        id: refresh;
+        width: parent.width;
+        height: parent.height * 0.1;
+        text: "refresh";
+        onClicked: {  }
     }
 
-    Text {
-        text: qsTr("Hello World")
-        anchors.centerIn: parent
+    GameArea {
+        id: gameArea;
+        x: 0; y: refresh.height;
+        width: parent.width;
+        height: parent.height - refresh.height;
+    }
+
+    Component.onCompleted: {
+        Logic.gameState(gameArea);
+        Logic.init();
     }
 }

@@ -25,6 +25,5 @@ ApplicationWindow {
 
     Component.onCompleted: {
         Logic.gameState(gameArea);
-        Logic.init();
     }
 }

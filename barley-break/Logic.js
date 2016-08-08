@@ -14,18 +14,18 @@ var game_state;
 function gameState(gamearea) {
     game_state = gamearea;
     gameField = createField();
-    return game_state;
+    init();
 }
 
 function move(target) {
-    targe += 1;
+    target.col += 1;
 }
 
 function init() {
-    targetComponent.createObject(game_state, {"col": 1,"row": 1} );
+    targetComponent.createObject(game_state, {"row": 1,"col": 1} );
     //for(var i = 0; i < 4; ++i)
     //    for(var j = 0; j < 4; ++j) {
     //        if(i == 3 && j == 3) return;
-    //        targetComponent.createObject(game_state, {"col": j,"row": i} );
+    //        targetComponent.createObject(game_state, {"row": j,"col": i} );
     //    }
 }

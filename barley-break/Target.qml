@@ -21,10 +21,13 @@ Button {
     x: col * (width - 1);
     y: row * (height - 1);
 
-    onClicked: {x: (col + 1) * (width - 1)}
     MouseArea {
         id: mouse;
         anchors.fill: parent;
         hoverEnabled: true;
+        onClicked: {
+            Logic.move(target);
+            x: col * (width - 1);
+        }
     }
 }

@@ -7,23 +7,26 @@ function setModel(newModel) {
 
 
 function move(index, count) {
-    if(check(index + 1, count) && model.get(index + 1).identifier == 0)
+    if(checkOutOfRange(index + 1, count) && model.get(index + 1).identifier == 0){
         model.move(index, index + 1, 1);
-    else if(check(index - 1, count) && model.get(index - 1).identifier == 0)
+    }
+    else if(checkOutOfRange(index - 1, count) && model.get(index - 1).identifier == 0){
         model.move(index, index - 1, 1);
-    else if(check(index + 4, count) && model.get(index + 4).identifier == 0){
+    }
+    else if(checkOutOfRange(index + 4, count) && model.get(index + 4).identifier == 0){
         model.move(index, index + 4, 1);
         model.move(index + 3, index, 1);
     }
-    else if(check(index - 4, count) && model.get(index - 4).identifier == 0){
+    else if(checkOutOfRange(index - 4, count) && model.get(index - 4).identifier == 0){
         model.move(index, index - 4, 1);
         model.move(index - 3, index, 1);
     }
 }
 
-function check(index, count) {
-    if(index < 0 || index >= count)
+function checkOutOfRange(index, count) {
+    if(index < 0 || index >= count){
         return false;
+    }
     return true;
 }
 
@@ -48,14 +51,17 @@ function getIdentifier() {
 
 function setArray() {
     var arr = [];
-    for(var i = 0; i < model.count; ++i)
+    for(var i = 0; i < model.count; ++i) {
         arr[i] = i;
+    }
     return arr;
 }
 
 function checkWin() {
-    for(var i = 1; i < 16; ++i)
-        if(model.get(i-1).identifier != i)
+    for(var i = 1; i < 16; ++i){
+        if(model.get(i-1).identifier != i){
             return false;
+        }
+    }
     return true;
 }

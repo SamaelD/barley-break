@@ -1,38 +1,61 @@
-.pragma library
+var array;
+var model;
 
-var gameField;
-function createField() {
-    var ret = [4][4];
-    for(var i = 0; i < 4; ++i)
-        ret = [4];
-    return ret;
+function setModel(newModel) {
+    model = newModel;
 }
 
-var targetComponent = Qt.createComponent("Target.qml");
 
-var game_state;
-function gameState(gamearea) {
-    game_state = gamearea;
-    gameField = createField();
-    init();
+function move(index, count) {
+    if(check(index + 1, count) && model.get(index + 1).identifier == 0)
+        model.move(index, index + 1, 1);
+    else if(check(index - 1, count) && model.get(index - 1).identifier == 0)
+        model.move(index, index - 1, 1);
+    else if(check(index + 4, count) && model.get(index + 4).identifier == 0){
+        model.move(index, index + 4, 1);
+        model.move(index + 3, index, 1);
+    }
+    else if(check(index - 4, count) && model.get(index - 4).identifier == 0){
+        model.move(index, index - 4, 1);
+        model.move(index - 3, index, 1);
+    }
 }
 
-function move(target) {
-    //target.col += 1;
-    check(target.row, target.col);
+function check(index, count) {
+    if(index < 0 || index >= count)
+        return false;
+    return true;
 }
 
-function init() {
-    targetComponent.createObject(game_state, {"row": 0,"col": 0} );
-    //for(var i = 0; i < 4; ++i)
-    //    for(var j = 0; j < 4; ++j) {
-    //        if(i == 3 && j == 3) return;
-    //        targetComponent.createObject(game_state, {"row": j,"col": i} );
-    //    }
+function refresh() {
+
+    array = setArray(model);
+    for(var i = 0; i < model.count; ++i) {
+        model.get(i).identifier = getIdentifier();
+    }
 }
 
-function check(row, col){
-    if(gameField[row][col] == null)
-        console.log("null");
-    else console.log("non null");
+function rand(min, max) {
+    return Math.floor(Math.random() * (max-min) + min);
+}
+
+function getIdentifier() {
+    var id = rand(0, array.length);
+    var item = array[id];
+    array.splice(id, 1);
+    return item;
+}
+
+function setArray() {
+    var arr = [];
+    for(var i = 0; i < model.count; ++i)
+        arr[i] = i;
+    return arr;
+}
+
+function checkWin() {
+    for(var i = 1; i < 16; ++i)
+        if(model.get(i-1).identifier != i)
+            return false;
+    return true;
 }

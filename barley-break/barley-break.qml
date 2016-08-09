@@ -30,10 +30,12 @@ ApplicationWindow {
 
         anchors.fill: parent
 
+        interactive: false;
+
         cellWidth: width / 4
         cellHeight: ( parent.height - parent.height * 0.1 ) / 4
 
-        model: Blocks{}
+        model: Blocks {}
         delegate: item
 
         displaced: Transition {
@@ -47,25 +49,25 @@ ApplicationWindow {
 
     Component {
         id: item
-        Rectangle{
+        Rectangle {
             id: rect
 
             width: grid.cellWidth
             height: grid.cellHeight
 
             border.color: "black"
-            color: mouse.containsMouse ? "darkred" : "green"
+            color: "green"
             radius: 10
 
             Text {
                 anchors.centerIn: rect
 
-                text: identifier == 0 ? "" : identifier
+                text: identifier === 0 ? null : identifier
 
                 font.bold: true
                 font.pixelSize: 48
 
-                color: mouse.containsMouse ? "black" : "darkred"
+                color: mouse.containsMouse && identifier !== 0? "black" : "darkred"
             }
 
             MouseArea {
@@ -76,8 +78,9 @@ ApplicationWindow {
                 hoverEnabled: true
                 acceptedButtons: Qt.LeftButton
                 onClicked: {
-                    Logic.move(index, grid.count)
-                    if(Logic.checkWin()) {
+                    if (identifier === 0) return
+                    Logic.move(index)
+                    if (Logic.checkWin()) {
                         gameOverDialog.visible = true
                     }
                 }
@@ -100,6 +103,7 @@ ApplicationWindow {
     }
 
     Component.onCompleted: {
+        Logic.initModel(grid.model, 16);
         Logic.setModel(grid.model)
         Logic.refresh()
     }

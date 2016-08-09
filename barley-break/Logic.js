@@ -29,18 +29,9 @@ function move(index) {
 }
 
 function checkBorder(currIndex, right) {
-    if (right) {
-        for (var i = 3; i < count; i += 4) {
-            if (currIndex === i) {
-                return false;
-            }
-        }
-    }
-    else {
-        for (var i = 0; i < count; i += 4) {
-            if (currIndex === i) {
-                return false;
-            }
+    for (var i = (right ? 3 : 0); i < count; i += 4) {
+        if (currIndex === i) {
+            return false;
         }
     }
     return true;

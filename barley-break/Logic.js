@@ -59,7 +59,7 @@ function setArray() {
 
 function checkWin() {
     for(var i = 1; i < 16; ++i){
-        if(model.get(i-1).identifier != i){
+        if(model.get(i-1).identifier !== i){
             return false;
         }
     }

@@ -7,17 +7,17 @@ function setModel(newModel) {
 
 
 function move(index, count) {
-    if(checkOutOfRange(index + 1, count) && model.get(index + 1).identifier == 0){
+    if(checkOutOfRange(index + 1, count) && model.get(index + 1).identifier === 0){
         model.move(index, index + 1, 1);
     }
-    else if(checkOutOfRange(index - 1, count) && model.get(index - 1).identifier == 0){
+    else if(checkOutOfRange(index - 1, count) && model.get(index - 1).identifier === 0){
         model.move(index, index - 1, 1);
     }
-    else if(checkOutOfRange(index + 4, count) && model.get(index + 4).identifier == 0){
+    else if(checkOutOfRange(index + 4, count) && model.get(index + 4).identifier === 0){
         model.move(index, index + 4, 1);
         model.move(index + 3, index, 1);
     }
-    else if(checkOutOfRange(index - 4, count) && model.get(index - 4).identifier == 0){
+    else if(checkOutOfRange(index - 4, count) && model.get(index - 4).identifier === 0){
         model.move(index, index - 4, 1);
         model.move(index - 3, index, 1);
     }

@@ -64,7 +64,7 @@ function getIdentifier() {
 
 function setArray() {
     var arr = [];
-    for (var i = 1; i <= model.count; ++i) {
+    for (var i = 0; i < model.count; ++i) {
         arr[i] = i;
     }
     return arr;

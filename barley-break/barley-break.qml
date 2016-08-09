@@ -35,7 +35,7 @@ ApplicationWindow {
         cellWidth: width / 4
         cellHeight: ( parent.height - parent.height * 0.1 ) / 4
 
-        model: Blocks {}
+        model: model
         delegate: item
 
         displaced: Transition {
@@ -56,18 +56,18 @@ ApplicationWindow {
             height: grid.cellHeight
 
             border.color: "black"
-            color: "green"
+            color: identifier === 0 ? "red" : "green"
             radius: 10
 
             Text {
                 anchors.centerIn: rect
 
-                text: identifier === 0 ? null : identifier
+                text: identifier === 0 ? "" : identifier
 
                 font.bold: true
                 font.pixelSize: 48
 
-                color: mouse.containsMouse && identifier !== 0? "black" : "darkred"
+                color: mouse.containsMouse && identifier !== 0 ? "black" : "darkred"
             }
 
             MouseArea {
@@ -86,7 +86,10 @@ ApplicationWindow {
                 }
             }
         }
+    }
 
+    ListModel {
+        id: model
     }
 
     MessageDialog {

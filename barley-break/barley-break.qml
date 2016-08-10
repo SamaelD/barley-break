@@ -99,7 +99,7 @@ ApplicationWindow {
                 id: anim;
                 from: 0;
                 to: 1;
-                duration: 4000;
+                duration: 400;
             }
         }
     }

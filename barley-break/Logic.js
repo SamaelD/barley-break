@@ -17,24 +17,24 @@ function initModel() {
     model.append({ identifier: 0 });
 }
 
-function move(index) {
+function move(index, grid) {
     if (checkOutOfRange(index + 1)
             && model.get(index + 1).identifier === 0
             && checkBorder(index, true)) {
-        model.move(index, index + 1, 1);
+        model.move(index, index + 1, 1); ++grid.moveCounter;
     }
     else if (checkOutOfRange(index - 1)
              && model.get(index - 1).identifier === 0
              && checkBorder(index, false)) {
-        model.move(index, index - 1, 1);
+        model.move(index, index - 1, 1); ++grid.moveCounter;
     }
     else if (checkOutOfRange(index + 4) && model.get(index + 4).identifier === 0) {
         model.move(index, index + 4, 1);
-        model.move(index + 3, index, 1);
+        model.move(index + 3, index, 1); ++grid.moveCounter;
     }
     else if (checkOutOfRange(index - 4) && model.get(index - 4).identifier === 0) {
         model.move(index, index - 4, 1);
-        model.move(index - 3, index, 1);
+        model.move(index - 3, index, 1); ++grid.moveCounter;
     }
 }
 

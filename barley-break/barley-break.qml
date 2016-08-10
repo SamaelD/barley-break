@@ -11,13 +11,15 @@ ApplicationWindow {
 
     signal refreshed();
 
-    minimumHeight: 500
+    minimumHeight: 600
     minimumWidth: 400
 
     title: "Barley break"
 
     GridView {
         id: grid
+
+        property int moveCounter: 0
 
         header:Button {
             id: refresh
@@ -30,12 +32,32 @@ ApplicationWindow {
             onClicked: { Logic.refresh(); }
         }
 
+        footer: Rectangle {
+            x:0
+            y: 100
+
+            width: wnd.width
+            height: wnd.height * 0.1
+
+            border.color: "black"
+            color: "lightgray"
+
+            Text {
+                anchors.centerIn: parent
+
+                font.pixelSize: parent.height * 0.85
+                font.bold: true
+
+                text: "Moves: " + grid.moveCounter
+            }
+        }
+
         anchors.fill: parent
 
         interactive: false;
 
         cellWidth: width / 4
-        cellHeight: ( parent.height - parent.height * 0.1 ) / 4
+        cellHeight: ( parent.height - parent.height * 0.2 ) / 4
 
         model: model
         delegate: component
@@ -89,7 +111,7 @@ ApplicationWindow {
                 acceptedButtons: Qt.LeftButton
                 onClicked: {
                     if (identifier === 0) return
-                    Logic.move(index)
+                    Logic.move(index, grid)
                     if (Logic.checkWin()) {
                         gameOverDialog.visible = true
                     }

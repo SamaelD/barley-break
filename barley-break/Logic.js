@@ -61,6 +61,9 @@ function refresh() {
     for (var i = 0; i < model.count; ++i) {
         model.get(i).identifier = getIdentifier();
     }
+    if (countInversion() % 2 !== 0){
+        model.move(count - 2, count - 1, 1);
+    }
 }
 
 function setArray() {
@@ -82,11 +85,21 @@ function rand(min, max) {
     return Math.floor(Math.random() * (max-min) + min);
 }
 
+function countInversion() {
+    var cnt = 0;
+    for (var i = 0; i < count - 1; ++i) {
+        for (var j = i + 1; j < count; ++j) {
+            if (model.get(i).identifier > model.get(j).identifier) {
+                ++cnt;
+            }
+        }
+    }
+    return cnt;
+}
+
 function checkWin() {
     for (var i = 1; i < 16; ++i) {
         if (model.get(i-1).identifier !== i) {
-            if (model.get(i-1).identifier === 15 && i === 14)
-                return true;
             return false;
         }
     }

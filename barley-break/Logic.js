@@ -2,17 +2,19 @@ var array;
 var model;
 var count;
 
-function initModel(newModel, newCount) {
+function setModel(newModel, newCount) {
     model = newModel;
     count = newCount;
-    for (var i = 1; i < count; ++i) {
-        model.append({ identifier: i });
-    }
-    model.append({ identifier: 0 });
 
     refresh();
 }
 
+function initModel() {
+    model.clear();
+    for (var i = 0; i < count; ++i) {
+        model.append({ identifier: i });
+    }
+}
 
 function move(index) {
     if (checkOutOfRange(index + 1)
@@ -53,6 +55,7 @@ function checkBorder(currIndex, right) {
 
 
 function refresh() {
+    initModel();
     array = setArray();
     for (var i = 0; i < model.count; ++i) {
         model.get(i).identifier = getIdentifier();

@@ -99,8 +99,7 @@ ApplicationWindow {
                 id: anim;
                 from: 0;
                 to: 1;
-                duration: 500;
-                easing.type: Easing.InOutSine
+                duration: 4000;
             }
         }
     }
@@ -120,5 +119,5 @@ ApplicationWindow {
         onNo: Qt.quit()
     }
 
-    Component.onCompleted: { Logic.initModel(grid.model, 16); }
+    Component.onCompleted: { Logic.setModel(grid.model, 16); }
 }

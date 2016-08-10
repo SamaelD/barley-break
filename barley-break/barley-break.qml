@@ -25,7 +25,7 @@ ApplicationWindow {
 
             text: "refresh"
 
-            onClicked: Logic.refresh()
+            onClicked: { Logic.refresh(); }
         }
 
         anchors.fill: parent
@@ -36,7 +36,7 @@ ApplicationWindow {
         cellHeight: ( parent.height - parent.height * 0.1 ) / 4
 
         model: model
-        delegate: item
+        delegate: component
 
         displaced: Transition {
             NumberAnimation {
@@ -48,7 +48,7 @@ ApplicationWindow {
     }
 
     Component {
-        id: item
+        id: component
         Rectangle {
             id: rect
 
@@ -70,6 +70,10 @@ ApplicationWindow {
                 color: mouse.containsMouse && identifier !== 0 ? "black" : "darkred"
             }
 
+            transform: Scale { origin.x: rect.x; origin.y: rect.y;
+                xScale: mouse.containsMouse && identifier !== 0 ? 1.015 : 1;
+                yScale: mouse.containsMouse && identifier !== 0 ? 1.015 : 1}
+
             MouseArea {
                 id: mouse
 
@@ -84,6 +88,12 @@ ApplicationWindow {
                         gameOverDialog.visible = true
                     }
                 }
+            }
+            ScaleAnimator on scale {
+                from: 0;
+                to: 1;
+                duration: 2000;
+                easing.type: Easing.OutBack
             }
         }
     }

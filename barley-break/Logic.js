@@ -2,8 +2,15 @@ var array;
 var model;
 var count;
 
-function setModel(newModel) {
+function initModel(newModel, newCount) {
     model = newModel;
+    count = newCount;
+    for (var i = 1; i < count; ++i) {
+        model.append({ identifier: i });
+    }
+    model.append({ identifier: 0 });
+
+    refresh();
 }
 
 
@@ -28,6 +35,13 @@ function move(index) {
     }
 }
 
+function checkOutOfRange(index) {
+    if (index < 0 || index >= count) {
+        return false;
+    }
+    return true;
+}
+
 function checkBorder(currIndex, right) {
     for (var i = (right ? 3 : 0); i < count; i += 4) {
         if (currIndex === i) {
@@ -37,29 +51,12 @@ function checkBorder(currIndex, right) {
     return true;
 }
 
-function checkOutOfRange(index) {
-    if (index < 0 || index >= count) {
-        return false;
-    }
-    return true;
-}
 
 function refresh() {
     array = setArray();
     for (var i = 0; i < model.count; ++i) {
         model.get(i).identifier = getIdentifier();
     }
-}
-
-function rand(min, max) {
-    return Math.floor(Math.random() * (max-min) + min);
-}
-
-function getIdentifier() {
-    var id = rand(0, array.length);
-    var item = array[id];
-    array.splice(id, 1);
-    return item;
 }
 
 function setArray() {
@@ -70,6 +67,17 @@ function setArray() {
     return arr;
 }
 
+function getIdentifier() {
+    var id = rand(0, array.length);
+    var item = array[id];
+    array.splice(id, 1);
+    return item;
+}
+
+function rand(min, max) {
+    return Math.floor(Math.random() * (max-min) + min);
+}
+
 function checkWin() {
     for (var i = 1; i < 16; ++i){
         if (model.get(i-1).identifier !== i) {
@@ -77,12 +85,4 @@ function checkWin() {
         }
     }
     return true;
-}
-
-function initModel(model, newCount) {
-    count = newCount;
-    for (var i = 1; i < count; ++i) {
-        model.append({ identifier: i });
-    }
-    model.append({ identifier: 0 });
 }

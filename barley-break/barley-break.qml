@@ -43,16 +43,16 @@ ApplicationWindow {
         moveDisplaced: Transition {
             NumberAnimation {
                 properties: "x, y"
-                easing.type: Easing.OutQuint
-                duration: 1000
+                easing.type: Easing.Linear
+                duration: 300
             }
         }
 
         move: Transition {
             NumberAnimation {
                 properties: "x, y"
-                easing.type: Easing.OutQuint
-                duration: 1000
+                easing.type: Easing.InOutSine
+                duration: 300
             }
         }
     }
@@ -62,31 +62,30 @@ ApplicationWindow {
         Rectangle {
             id: rect
 
-            signal refresh();
-
             width: grid.cellWidth
             height: grid.cellHeight
 
+            opacity: identifier === 0 ? 0 : 1
             border.color: "black"
-            color: identifier === 0 ? "red" : "green"
+            color: "green"
             radius: 10
 
             Text {
                 anchors.centerIn: rect
 
-                text: identifier === 0 ? "" : identifier
+                text: identifier
 
                 font.bold: true
                 font.pixelSize: 48
 
-                color: mouse.containsMouse && identifier !== 0 ? "black" : "darkred"
+                color: mouse.containsMouse ? "black" : "darkred"
             }
 
             transform: Scale {
                 origin.x: rect.x;
                 origin.y: rect.y;
-                xScale: mouse.containsMouse && identifier !== 0 ? 1.015 : 1
-                yScale: mouse.containsMouse && identifier !== 0 ? 1.015 : 1
+                xScale: mouse.containsMouse ? 1.015 : 1
+                yScale: mouse.containsMouse ? 1.015 : 1
             }
 
             MouseArea {
@@ -114,9 +113,7 @@ ApplicationWindow {
         }
     }
 
-    ListModel {
-        id: model
-    }
+    ListModel { id: model }
 
     MessageDialog {
         id: gameOverDialog
@@ -124,16 +121,12 @@ ApplicationWindow {
         visible: false
 
         title: "Winner"
-        text: "You're win the game!\nCongratulations!!"
+        text: "You're win the game!\nCongratulations!!\nRestart?"
 
         standardButtons: StandardButton.Yes | StandardButton.No
         onYes: Logic.refresh()
         onNo: Qt.quit()
     }
 
-    Component.onCompleted: {
-        Logic.initModel(grid.model, 16);
-        Logic.setModel(grid.model)
-        Logic.refresh()
-    }
+    Component.onCompleted: { Logic.initModel(grid.model, 16); }
 }

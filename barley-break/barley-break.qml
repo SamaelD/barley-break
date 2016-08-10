@@ -40,14 +40,6 @@ ApplicationWindow {
         model: model
         delegate: component
 
-        moveDisplaced: Transition {
-            NumberAnimation {
-                properties: "x, y"
-                easing.type: Easing.Linear
-                duration: 300
-            }
-        }
-
         move: Transition {
             NumberAnimation {
                 properties: "x, y"

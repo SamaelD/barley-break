@@ -81,7 +81,8 @@ function checkWin() {
 
 function initModel(model, newCount) {
     count = newCount;
-    for (var i = 0; i < count; ++i) {
+    for (var i = 1; i < count; ++i) {
         model.append({ identifier: i });
     }
+    model.append({ identifier: 0 });
 }

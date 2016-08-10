@@ -9,6 +9,8 @@ import "Logic.js" as Logic
 ApplicationWindow {
     id: wnd
 
+    signal refreshed();
+
     minimumHeight: 500
     minimumWidth: 400
 
@@ -17,7 +19,7 @@ ApplicationWindow {
     GridView {
         id: grid
 
-        header: Button {
+        header:Button {
             id: refresh
 
             width: wnd.width
@@ -38,7 +40,15 @@ ApplicationWindow {
         model: model
         delegate: component
 
-        displaced: Transition {
+        moveDisplaced: Transition {
+            NumberAnimation {
+                properties: "x, y"
+                easing.type: Easing.OutQuint
+                duration: 1000
+            }
+        }
+
+        move: Transition {
             NumberAnimation {
                 properties: "x, y"
                 easing.type: Easing.OutQuint
@@ -51,6 +61,8 @@ ApplicationWindow {
         id: component
         Rectangle {
             id: rect
+
+            signal refresh();
 
             width: grid.cellWidth
             height: grid.cellHeight
@@ -70,9 +82,12 @@ ApplicationWindow {
                 color: mouse.containsMouse && identifier !== 0 ? "black" : "darkred"
             }
 
-            transform: Scale { origin.x: rect.x; origin.y: rect.y;
-                xScale: mouse.containsMouse && identifier !== 0 ? 1.015 : 1;
-                yScale: mouse.containsMouse && identifier !== 0 ? 1.015 : 1}
+            transform: Scale {
+                origin.x: rect.x;
+                origin.y: rect.y;
+                xScale: mouse.containsMouse && identifier !== 0 ? 1.015 : 1
+                yScale: mouse.containsMouse && identifier !== 0 ? 1.015 : 1
+            }
 
             MouseArea {
                 id: mouse
@@ -90,10 +105,11 @@ ApplicationWindow {
                 }
             }
             ScaleAnimator on scale {
+                id: anim;
                 from: 0;
                 to: 1;
-                duration: 2000;
-                easing.type: Easing.OutBack
+                duration: 500;
+                easing.type: Easing.InOutSine
             }
         }
     }
